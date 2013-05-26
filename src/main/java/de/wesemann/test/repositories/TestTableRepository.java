@@ -3,15 +3,26 @@ package de.wesemann.test.repositories;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.repository.annotation.RestResource;
 
 @RestResource(rel = "people", path = "people")
-public interface TestTableRepository extends JpaRepository<TestTable, Long> {
+public interface TestTableRepository extends
+		PagingAndSortingRepository<TestTable, Long>{
 
 	// @RestResource(rel = "country", path = "country")
-	List<TestTable> findByCountry(@Param("country") String country);
+	Page<TestTable> findByCountryContaining(@Param("country") String country,
+			Pageable pageable);
+
+	Page<TestTable> findByNameContaining(@Param("name") String name,
+			Pageable pageable);
+
+	// @Query(countQuery =
+	// "select count(t.country) from TestTable t where t.country like %:country%")
+	// long countByCountryLike(@Param("country") String country);
 
 	List<TestTable> findByTsBetween(Date start, Date end);
 }

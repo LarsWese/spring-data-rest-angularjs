@@ -1,11 +1,8 @@
 package de.wesemann.test;
 
-import java.text.DateFormat;
-import java.util.Date;
 import java.util.Locale;
 
 import org.apache.log4j.Logger;
-import org.apache.log4j.spi.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +18,7 @@ import de.wesemann.test.repositories.TestTableRepository;
 public class HomeController {
 
 	private static final Logger logger = Logger.getLogger(HomeController.class);
+
 	@Autowired
 	TestTableRepository testRepository;
 
@@ -29,19 +27,39 @@ public class HomeController {
 	 * "content-type=application/json,application/xml"
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String index(Locale locale, Model model) {
+		// System.out.println(testRepository.getCountByCountry());
+		return "index";
+	}
+
+	/**
+	 * Simply selects the home view to render by returning its name. , headers =
+	 * "content-type=application/json,application/xml"
+	 */
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	public String test(Locale locale, Model model) {
+
+		return "test.html";
+	}
+
+	/**
+	 * Simply selects the home view to render by returning its name. , headers =
+	 * "content-type=application/json,application/xml"
+	 */
+	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 
-		logger.info("Welcome home! The client locale is " + locale);
-		logger.info(testRepository.count() + " entries");
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG,
-				DateFormat.LONG, locale);
-
-		String formattedDate = dateFormat.format(date);
-
-		model.addAttribute("serverTime", formattedDate);
-
 		return "home";
+	}
+
+	/**
+	 * Simply selects the home view to render by returning its name. , headers =
+	 * "content-type=application/json,application/xml"
+	 */
+	@RequestMapping(value = "/home/list", method = RequestMethod.GET)
+	public String list(Locale locale, Model model) {
+		// logger.info("called list");
+		return "list";
 	}
 
 }

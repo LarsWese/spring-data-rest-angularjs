@@ -26,6 +26,7 @@
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
 
+
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
@@ -33,6 +34,15 @@
 		<property name="username" value="root" />
 		<property name="password" value="adminadmin" />
 	</bean>
+
+
+<!-- 	<bean id="myRepositoryImpl" class="de.wesemann.test.repositories.MyRepositoryImpl"> -->
+<!-- 		<property name="entityManager"> -->
+<!-- 			<bean class="org.springframework.orm.jpa.support.SharedEntityManagerBean"> -->
+<!-- 				<property name="entityManagerFactory" ref="entityManagerFactory" /> -->
+<!-- 			</bean> -->
+<!-- 		</property> -->
+<!-- 	</bean> -->
 
 	<jpa:repositories base-package="de.wesemann.test.repositories" />
 </beans>
