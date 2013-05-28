@@ -1,6 +1,8 @@
 package de.wesemann.test;
 
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,13 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(Locale locale, Model model) {
 		// System.out.println(testRepository.getCountByCountry());
+		List<Object> countCountry = testRepository.countCountry();
+		for (Object item : countCountry) {
+			Object[] tuple = (Object[]) item;
+			String itemType = (String) tuple[0];
+			Long count = (Long) tuple[1];
+			System.out.println(itemType + ": " + count);
+		}
 		return "index";
 	}
 
